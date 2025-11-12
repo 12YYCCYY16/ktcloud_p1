@@ -6,9 +6,13 @@
 
 컴포넌트,역할,포트
 Prometheus,메트릭 수집 및 경고 규칙 평가,9090
+
 Alertmanager,경고 라우팅 및 Jenkins Webhook 전송,9093
+
 Grafana,수집된 메트릭 시각화 (대시보드),3000
+
 Node Exporter,OpenStack 노드의 시스템 메트릭 수집,9100
+
 Jenkins,자동 조치(AutoHealingJob) 실행,8080
 
 ⚙️ 설정 파일 및 환경 구성
