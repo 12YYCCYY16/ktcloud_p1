@@ -1,0 +1,11 @@
+groups:
+- name: OpenStackAutoScaling
+  rules:
+  - alert: HighCpuUsageAutoScalingNeeded
+    expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+    for: 5m
+    labels:
+      severity: 'critical-auto'
+    annotations:
+      summary: "{{ $labels.instance }} 서버 CPU 사용량이 80%를 초과하여 자동 스케일 조치 필요"
+      description: "CPU 사용량이 5분 동안 80%를 초과했습니다. 자동 조치 시스템(Jenkins)을 트리거합니다."
