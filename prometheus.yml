@@ -1,0 +1,27 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['172.16.8.148:9090']
+
+  - job_name: 'alertmanager'
+    static_configs:
+      - targets: ['172.16.8.148:9093']
+
+  - job_name: 'openstack_node_exporter_host'
+    static_configs:
+      - targets: ['172.16.8.148:9100'] 
+      # 예시 - targets: ['오픈스택 각 노드별 주소 입력']
+
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['172.16.8.148:9093']
+
+rule_files:
+  - 'alerts.yml'  # <-- 이 경로는 유지
+
+  #테스트할 오픈스택 노드의 ip주소를 받아서 각각 수정하셔야합니다.(***포트번호는 그대로 유지***)
