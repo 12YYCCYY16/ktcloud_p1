@@ -1,0 +1,25 @@
+global:
+  # 이메일/Slack 설정은 필요할 때 추가합니다.
+
+route:
+  group_by: ['alertname', 'instance']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: 'default-receiver'
+
+  routes:
+  - match:
+      severity: 'critical-auto' # 자동 조치를 위한 경고 레이블
+    receiver: 'jenkins-autoscale' # Webhook 리시버로 라우팅
+
+receivers:
+  - name: 'default-receiver'
+    # 지금은 비워둡니다.
+
+  - name: 'jenkins-autoscale'
+    webhook_configs:
+      # **여기에 주령님에게 받을 Jenkins Webhook URL을 나중에 입력해야 합니다.**
+      # 예시: 'http://172.16.8.200:8080/job/AutoHealingJob/buildWithParameters?token=YOUR_TOKEN'
+      - url: 'http://<JENKINS_IP>:8080/job/AutoHealingJob/buildWithParameters?token=YOUR_TOKEN'
+        send_resolved: true
